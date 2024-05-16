@@ -3,6 +3,7 @@ class GestorUsuarios {
     constructor() {
         this.servicios = new Servicios();
         //todas las variables que deben inicializarse
+        this.token = '';
         this.usuarios = []; 
         //LOS USUARIOS DE LA FUNCION GESTORUSUARIOS
         this.init();
@@ -23,19 +24,25 @@ class GestorUsuarios {
             if (error) {
                 alert('Usuario o contraseña incorrectos');
             } else {
-                this.usuarios.push(response.usuario);
+                //this.usuarios.push(response.usuario);
                 //agrega un campo al array
-                alert('¡Login exitoso!');
-                this.cleanMain();
+                console.log(response);
+                if (response.status == 200) {
+                    alert('¡Login exitoso!');
+                    this.token = response.token;
+                    this.cleanMain();
+                    this.mostrarUsuarios(this.token);
+                }
             }
         });
     }
-    mostrarUsuarios() {
-        this.servicios.obtenerUsuarios((error, response) => {
+    mostrarUsuarios(token) {
+        this.servicios.obtenerUsuarios(token, (error, response) => {
             if (error) {
                 console.error('Error al obtener usuarios:', error);
             } else {
-                this.renderizarUsuarios(response.usuarios);
+                console.log(response);
+                this.renderizarUsuarios(response);
             }
         });
     }
@@ -43,9 +50,36 @@ class GestorUsuarios {
         $("#mainlogin").html("");
     }
     renderizarUsuarios(usuarios) {
+
+        // Definir función para calcular la edad
+        function calcularEdad(fechaNacimiento) {
+            const hoy = new Date();
+            const cumpleanos = new Date(fechaNacimiento);
+            let edad = hoy.getFullYear() - cumpleanos.getFullYear();
+            const mes = hoy.getMonth() - cumpleanos.getMonth();
+            if (mes < 0 || (mes === 0 && hoy.getDate() < cumpleanos.getDate())) {
+                edad--;
+            }
+            return edad;
+        }
+
         //usuarios ==> Array
         usuarios.forEach(usuario => {
-            $('#mainlogin').append(`<div class="usuario">${usuario}</div>`);
+
+            // Calcula la edad
+            const edad = calcularEdad(usuario.fechaNacimiento);
+
+            // Determina el color del texto basado en si es menor de edad o no
+            const colorTexto = edad < 18 ? 'red' : 'black';
+
+            $('#mainlogin').append(`
+                <div class="usuario">
+                    <div style="color: ${colorTexto};">Nombre: ${usuario.name}</div>
+                    <div style="color: ${colorTexto};">Foto: <img src="${usuario.foto}" alt="${usuario.name}" /></div>
+                    <div style="color: ${colorTexto};">DNI: ${usuario.dni}</div>
+                    <div style="color: ${colorTexto};">Estado Civil: ${usuario.estadoCivil}</div>
+                </div>
+            `);
         });
     }
     renderLogin() {

@@ -1,6 +1,7 @@
 class Servicios {
     autenticar(usuario, contrasena, callback) {
-        const apiurl = '/login';
+        //const apiurl = 'https://frontenduch.free.beeceptor.com/login';
+        const apiurl = 'json/login.json';
         // Aquí iría la llamada a la API para la autenticación
         // Supondré una llamada AJAX simulada
         $.ajax({
@@ -15,13 +16,14 @@ class Servicios {
             }
         });
     }
-    obtenerUsuarios(callback) {
-        const apiurl = '/usuarios';
+    obtenerUsuarios(token, callback) {
+        const apiurl = 'json/usuarios.json';
         // Aquí iría la llamada a la API para obtener los usuarios
         // Supondré una llamada AJAX simulada
         $.ajax({
             url: apiurl,
             method: 'GET',
+            data: { token },
             success: (response) => {
                 callback(null, response);
             },

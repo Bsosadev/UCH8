@@ -1,0 +1,8 @@
+[
+    {"id": 1, "name":"Frank", "fechaNacimiento": "1990-05-20", "foto": "img/frank.jpg", "dni": "12345678", "estadoCivil": "Soltero"},
+    {"id": 2, "name":"Rogger", "fechaNacimiento": "1985-10-15", "foto": "img/rogger.jpg", "dni": "23456789", "estadoCivil": "Casado"},
+    {"id": 3, "name":"Luis", "fechaNacimiento": "2007-02-03", "foto": "img/luis.jpg", "dni": "34567890", "estadoCivil": "Soltero"},
+    {"id": 4, "name":"Felipe", "fechaNacimiento": "1998-12-28", "foto": "img/felipe.jpg", "dni": "45678901", "estadoCivil": "Casado"},
+    {"id": 5, "name":"Rosa", "fechaNacimiento": "2008-07-10", "foto": "img/rosa.jpg", "dni": "56789012", "estadoCivil": "Soltera"},
+    {"id": 6, "name":"Miguel", "fechaNacimiento": "1978-09-17", "foto": "img/miguel.jpg", "dni": "67890123", "estadoCivil": "Divorciado"}
+]
